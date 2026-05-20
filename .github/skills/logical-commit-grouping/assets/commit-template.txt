@@ -1,0 +1,55 @@
+# Commit Message Template
+
+Use this template for clear, conventional commits.
+
+---
+
+# <type>(<scope>): <subject>
+# |      |         |
+# |      |         +-> Imperative mood, lowercase, no period
+# |      |
+# |      +-> Scope of the change (optional but recommended)
+# |
+# +-> Type: feat, fix, refactor, docs, test, style, perf, chore
+
+# Types:
+#   feat      - A new feature
+#   fix       - A bug fix
+#   refactor  - Code change that neither fixes a bug nor adds a feature
+#   docs      - Changes to documentation
+#   test      - Adding or updating tests
+#   style     - Changes that don't affect code meaning (formatting, etc)
+#   perf      - Code change that improves performance
+#   chore     - Build, dependency, config, tooling changes
+
+# Examples:
+#   feat(auth): add JWT token refresh mechanism
+#   fix(posts): handle null title validation
+#   refactor(db): extract query builder to utility
+#   docs(api): update endpoint documentation
+#   test(auth): add comprehensive token refresh tests
+
+# Body (optional, wrap at 72 chars):
+# Explain WHAT and WHY, not HOW. Include:
+# - Motivation for the change
+# - Contrast with previous behavior
+# - Reference related issues/PRs
+
+# Footer (optional):
+# - Fixes #123
+# - Closes #456
+# - Related-To #789
+
+---
+
+# SUBJECT EXAMPLES:
+
+# Good:
+#   ✅ feat(auth): add JWT token refresh
+#   ✅ fix(post): prevent null titles
+#   ✅ refactor(db): simplify user queries
+
+# Bad:
+#   ❌ Added token refresh feature
+#   ❌ fixed bug in posts
+#   ❌ refactored stuff
