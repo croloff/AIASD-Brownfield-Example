@@ -8,16 +8,19 @@ namespace PostHubAPI.Tests.Controllers;
 public class UserControllerTests
 {
     [Fact]
-    public async Task Register_ReturnsOkWithStringPayload_WhenServiceSucceeds()
+    public async Task Register_ReturnsOkWithJwtToken_WhenServiceExecutesSuccessfully()
     {
+        // Arrange
         const string expectedToken = "jwt-token";
         var controller = new UserController(new StubUserService
         {
             RegisterHandler = _ => Task.FromResult(expectedToken)
         });
 
+        // Act
         var result = await controller.Register(CreateRegisterDto());
 
+        // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
         Assert.Equal(200, okResult.StatusCode);
         var payload = Assert.IsType<string>(okResult.Value);
@@ -50,6 +53,20 @@ public class UserControllerTests
         var badRequest = Assert.IsType<BadRequestObjectResult>(result);
         Assert.Equal(400, badRequest.StatusCode);
         Assert.Equal(expectedMessage, badRequest.Value);
+    }
+
+    [Fact]
+    public async Task Register_ReturnsBadRequest_WhenInputIsNull()
+    {
+        // Arrange
+        var controller = new UserController(new StubUserService());
+
+        // Act
+        var result = await controller.Register(null);
+
+        // Assert
+        var badRequest = Assert.IsType<BadRequestObjectResult>(result);
+        Assert.Equal(400, badRequest.StatusCode);
     }
 
     [Fact]

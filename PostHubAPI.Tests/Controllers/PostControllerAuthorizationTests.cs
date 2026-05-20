@@ -20,43 +20,53 @@ public class PostControllerAuthorizationTests
     private const string Secret = "integration-test-secret-value-1234567890";
 
     [Fact]
-    public async Task CreatePost_ReturnsUnauthorized_WhenRequestIsAnonymous()
+    public async Task CreatePost_ReturnsUnauthorized_WhenUserIsAnonymous()
     {
+        // Arrange
         using var factory = CreateFactory();
         using var client = CreateClient(factory);
 
+        // Act
         var response = await client.PostAsJsonAsync("/api/Post", CreatePostDto());
 
+        // Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
     }
 
     [Fact]
     public async Task EditPost_ReturnsUnauthorized_WhenRequestIsAnonymous()
     {
+        // Arrange
         using var factory = CreateFactory();
         using var client = CreateClient(factory);
         var postId = await CreateAuthorizedPostAsync(client);
 
+        // Act
         var response = await client.PutAsJsonAsync($"/api/Post/{postId}", CreateEditPostDto());
 
+        // Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
     }
 
     [Fact]
     public async Task DeletePost_ReturnsUnauthorized_WhenRequestIsAnonymous()
     {
+        // Arrange
         using var factory = CreateFactory();
         using var client = CreateClient(factory);
         var postId = await CreateAuthorizedPostAsync(client);
 
+        // Act
         var response = await client.DeleteAsync($"/api/Post/{postId}");
 
+        // Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
     }
 
     [Fact]
     public async Task CreatePost_ReturnsCreated_WhenRequestHasValidJwt()
     {
+        // Arrange
         using var factory = CreateFactory();
         using var client = CreateClient(factory);
 
@@ -66,11 +76,28 @@ public class PostControllerAuthorizationTests
         };
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", CreateJwt());
 
+        // Act
         var response = await client.SendAsync(request);
 
+        // Assert
         Assert.Equal(HttpStatusCode.Created, response.StatusCode);
         var newPostId = await response.Content.ReadFromJsonAsync<int>();
         Assert.True(newPostId > 0);
+    }
+
+    [Fact]
+    public async Task CreatePost_ReturnsCreated_WhenUserIsAuthorized()
+    {
+        // Arrange
+        using var factory = CreateFactory();
+        using var client = CreateClient(factory);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GenerateValidJwtToken());
+
+        // Act
+        var response = await client.PostAsJsonAsync("/api/Post", CreatePostDto());
+
+        // Assert
+        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
     }
 
     private static WebApplicationFactory<Program> CreateFactory()
@@ -150,4 +177,21 @@ public class PostControllerAuthorizationTests
             Title = "Updated title",
             Body = "Updated body"
         };
+
+    private static string GenerateValidJwtToken()
+    {
+        var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Secret));
+        var token = new JwtSecurityToken(
+            issuer: ValidIssuer,
+            audience: ValidAudience,
+            claims:
+            [
+                new Claim(ClaimTypes.Name, "integration-user"),
+                new Claim(ClaimTypes.Email, "integration@example.com")
+            ],
+            expires: DateTime.UtcNow.AddMinutes(5),
+            signingCredentials: new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256));
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
 }
