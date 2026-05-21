@@ -144,6 +144,22 @@ Each prompt file defines a specific technology or pattern used in PostHubAPI and
 
 ---
 
+### 8. Fix Issue 022: SwaggerGen Configuration
+**File**: [`fix-issue-022-swaggergen-configuration-incomplete.prompt.md`](fix-issue-022-swaggergen-configuration-incomplete.prompt.md)
+
+**Scope**: Remediation prompt for Issue 022 to implement complete SwaggerGen setup in `Program.cs`.
+
+**Key Topics**:
+- OpenApiInfo metadata configuration
+- XML documentation comments integration
+- JWT Bearer security definition in Swagger
+- Global Swagger security requirement
+- Build and Swagger UI validation checklist
+
+**Applies To**: `Program.cs`
+
+---
+
 ## Using These Prompts
 
 ### To Generate an Instruction File
@@ -183,6 +199,7 @@ Name it `entity-framework-core.instructions.md` and place it in `.github/instruc
 | xUnit Testing | `xunit` | Latest | [xUnit Prompt](create-xunit-testing-instructions.prompt.md) | ✅ Available |
 | SQLite Database | `Microsoft.EntityFrameworkCore.Sqlite` | 8.0.1 | [SQLite Prompt](create-sqlite-database-instructions.prompt.md) | ✅ Available |
 | Swagger/OpenAPI | `Swashbuckle.AspNetCore` | 6.5.0 | [Swagger Prompt](create-swagger-openapi-instructions.prompt.md) | ✅ Available |
+| Issue Remediation (Issue 022) | `Swashbuckle.AspNetCore` | 6.5.0 | [Issue 022 Fix Prompt](fix-issue-022-swaggergen-configuration-incomplete.prompt.md) | ✅ Available |
 | ASP.NET Core Identity | `Microsoft.AspNetCore.Identity.EntityFrameworkCore` | 8.0.1 | [JWT Auth Prompt](create-jwt-authentication-instructions.prompt.md) | ✅ Available |
 | Password Hashing | `BCrypt.Net` | 0.1.0 | [JWT Auth Prompt](create-jwt-authentication-instructions.prompt.md) | ✅ Available |
 
@@ -294,5 +311,5 @@ Planned prompts for future tech stack components:
 **Index Version**: 1.0.0  
 **Last Updated**: May 21, 2026  
 **Maintainer**: Development Team  
-**Total Prompts**: 7  
+**Total Prompts**: 8  
 **Generated Instructions**: 0 of 7

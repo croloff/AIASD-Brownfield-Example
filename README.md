@@ -146,6 +146,7 @@ Instruction files provide detailed guidance for implementing features consistent
 - [.github/instructions/sqlite-database.instructions.md](.github/instructions/sqlite-database.instructions.md): SQLite database instruction file for provider selection, schema evolution, operations, and resilience.
 - [.github/instructions/swagger-openapi.instructions.md](.github/instructions/swagger-openapi.instructions.md): Swagger/OpenAPI instruction file for per-action response type attributes, XML documentation, Swashbuckle configuration, and JWT security definition.
 - [.github/instructions/xunit-testing.instructions.md](.github/instructions/xunit-testing.instructions.md): xUnit testing instruction file for unit tests, integration tests, and authorization coverage patterns.
+- [.github/prompts/fix-issue-022-swaggergen-configuration-incomplete.prompt.md](.github/prompts/fix-issue-022-swaggergen-configuration-incomplete.prompt.md): Prompt file for implementing and validating Issue 022 SwaggerGen configuration remediation in `Program.cs`.
 - [AI log (conversation - Swagger/OpenAPI instructions)](ai-logs/2026/05/21/8f22b8f1-109f-4036-b9f3-effc961047fb/conversation.md)
 - [AI log (summary - Swagger/OpenAPI instructions)](ai-logs/2026/05/21/8f22b8f1-109f-4036-b9f3-effc961047fb/summary.md)
 - [AI log (conversation - docs)](ai-logs/2026/05/19/create-project-documentation-20260519/conversation.md)
